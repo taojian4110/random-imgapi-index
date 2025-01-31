@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机图片展示标题</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212; /* 深色背景 */
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            color: #ffffff; /* 文字颜色为白色 */
+        }
+        #image-container {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 90%;
+            max-width: 600px;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 2px solid #ffffff; /* 头像边框颜色为白色 */
+        }
+        h1 {
+            margin: 0;
+            color: #ffffff; /* 标题颜色为白色 */
+            font-size: 24px;
+        }
+        img#random-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 调整阴影颜色 */
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff69b4; /* 粉色背景 */
+            color: white;
+        }
+        button:hover {
+            background-color: #ff1493; /* 更浅的粉色 */
+        }
+        textarea {
+            width: 90%;
+            max-width: 600px;
+            height: 30px; /* 单行高度 */
+            margin-top: 20px;
+            padding: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            background-color: #1e1e1e; /* 浅黑色背景 */
+            color: #ffffff; /* 文字颜色为白色 */
+            border: 2px solid #ffffff; /* 边框颜色为白色 */
+            border-radius: 5px;
+            resize: none; /* 禁止调整大小 */
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+            button {
+                font-size: 14px;
+            }
+            textarea {
+                width: 95%;
+                height: 25px;
+                font-size: 12px;
+                padding: 4px;
+            }
+            .footer a {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container">
+        <div class="header">
+            <img src="https://q1.qlogo.cn/g?b=qq&nk=【QQ号码】&s=640" alt="头像">
+            <h1>【随机图片展示主标题】</h1>
+        </div>
+        <img id="random-image" src="" alt="随机图片">
+        <button onclick="fetchRandomImage()">换一张图片</button>
+        <textarea id="code-display" readonly></textarea>
+    </div>
+
+    <div class="footer">
+        <a href="【作者网址】" target="_blank">作者信息</a>
+    </div>
+
+    <script>
+        async function fetchRandomImage() {
+            try {
+                const response = await fetch('【随机图片API地址】');
+                if (!response.ok) {
+                    throw new Error(`HTTP 错误！状态码: ${response.status}`);
+                }
+                const blob = await response.blob();
+                const imageUrl = URL.createObjectURL(blob);
+                document.getElementById('random-image').src = imageUrl;
+            } catch (error) {
+                console.error('获取图片时出错:', error);
+                alert('无法加载图片，请稍后再试');
+            }
+        }
+
+        // 页面加载时自动获取一张图片
+        window.onload = () => {
+            fetchRandomImage();
+            displayCode();
+        };
+
+        function displayCode() {
+            const codeDisplay = document.getElementById('code-display');
+            codeDisplay.value = 'https://imgapi.mtcfgzs.top/animepc/local.php';
+        }
+    </script>
+</body>
+</html>
